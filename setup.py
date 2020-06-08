@@ -24,11 +24,12 @@ except ImportError:
 
 requires = [
               'pyghmi==1.2.16',
+              'pycrypto==2.6.1',
             ]
 
 setup(
     name = 'ipmisim',
-    version = '0.8',
+    version = '0.9',
     maintainer = 'Rohit Yadav',
     maintainer_email = 'rohit@apache.org',
     url = 'https://github.com/rhtyd/ipmisim',
