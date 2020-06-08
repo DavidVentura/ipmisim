@@ -1,6 +1,9 @@
 from ipmisim.ipmisim import IpmiServer, IpmiServerContext
 import pytest
-import socketserver
+try:
+    import SocketServer as socketserver
+except ModuleNotFoundError:
+    import socketserver
 
 from threading import Thread
 
