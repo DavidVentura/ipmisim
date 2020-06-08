@@ -29,10 +29,14 @@ import hmac
 import hashlib
 import collections
 
-from fakebmc import FakeBmc
-from fakesession import FakeSession
+from ipmisim.fakebmc import FakeBmc
+from ipmisim.fakesession import FakeSession
 
-import SocketServer
+try:
+    import SocketServer as socketserver
+except ModuleNotFoundError:
+    import socketserver
+
 
 logger = logging.getLogger('ipmisim')
 logging.disable(logging.CRITICAL)
@@ -428,7 +432,7 @@ class IpmiServerContext(object):
             logger.debug('IPMI response sent (Invalid Command) to %s', self.session.sockaddr)
 
 
-class IpmiServer(SocketServer.BaseRequestHandler):
+class IpmiServer(socketserver.BaseRequestHandler):
     def handle(self):
         data = self.request[0]
         socket = self.request[1]
@@ -436,7 +440,7 @@ class IpmiServer(SocketServer.BaseRequestHandler):
         return IpmiServerContext().handle(data, address, socket)
 
 
-class ThreadedIpmiServer(SocketServer.ThreadingMixIn, SocketServer.UDPServer):
+class ThreadedIpmiServer(socketserver.ThreadingMixIn, socketserver.UDPServer):
     pass
 
 
