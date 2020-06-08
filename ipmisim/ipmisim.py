@@ -29,8 +29,12 @@ import hmac
 import hashlib
 import collections
 
-from ipmisim.fakebmc import FakeBmc
-from ipmisim.fakesession import FakeSession
+try:
+    from fakebmc import FakeBmc
+    from fakesession import FakeSession
+except ModuleNotFoundError:
+    from ipmisim.fakebmc import FakeBmc
+    from ipmisim.fakesession import FakeSession
 
 try:
     import SocketServer as socketserver
